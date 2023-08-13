@@ -1,7 +1,7 @@
 @setlocal DisableDelayedExpansion
 rem @echo off
 REM change wording if needed for echo commands..
-SET "Version=v1.2"
+SET "Version=v1.1+"
 
 
 :: Re-launch the script with x64 process if it was initiated by x86 process on x64 bit Windows
