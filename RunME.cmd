@@ -13,7 +13,7 @@ start %SystemRoot%\Sysnative\cmd.exe /c ""!_cmdf!" %*"
 exit /b
 )
 
-TITLE Create Modified Windows 11 ISO To Be Able To Directly Upgrade From a Windows 7 Install %version%
+TITLE Create Modified Windows ISO To Be Able To Directly Upgrade From a Windows 7 Install %version%
 
 echo===============================================
 echo Check for Admin rights...
@@ -52,22 +52,10 @@ for /f "tokens=3 delims=: " %%i in ('%_wimlib% info ISO\sources\install.esd ^| f
 for /L %%i in (1,1,%images%) do (
   %_wimlib% update "ISO\Sources\install.esd" %%i --command="add 'UpgradeMatrix\%warch%\UpgradeMatrix.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
 )
-pause
 echo.
 echo===============================================
 echo Optimizing the ESD file...
 echo===============================================
 echo.
 %_wimlib% optimize "ISO\Sources\install.esd"
-echo.
-echo===============================================
-echo Creating the ISO...
-echo===============================================
-echo.
-bin\oscdimg.exe -bootdata:2#p0,e,b"ISO\boot\etfsboot.com"#pEF,e,b"ISO\efi\Microsoft\boot\efisys.bin" -o -m -u2 -udfver102 -lWindows11_%warch% ISO Windows11_%warch%_For_W7_Upgrade.iso
-echo.
-echo===============================================
-echo Cleaning up the ISO folder...
-echo===============================================
-if exist "ISO" RD /S /Q "ISO"
 echo.
