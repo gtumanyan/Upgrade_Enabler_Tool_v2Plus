@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-rem @echo off
+@echo off
 REM change wording if needed for echo commands..
 SET "Version=v1.1+"
 
