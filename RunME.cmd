@@ -13,7 +13,7 @@ start %SystemRoot%\Sysnative\cmd.exe /c ""!_cmdf!" %*"
 exit /b
 )
 
-TITLE Create Modified Windows ISO To Be Able To Directly Upgrade From a Windows 7 Install %version%
+TITLE Create Modified Windows ISO To Be Able To Directly Upgrade From any Windows Install %version%
 
 echo===============================================
 echo Check for Admin rights...
