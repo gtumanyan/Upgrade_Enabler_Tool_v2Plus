@@ -25,13 +25,6 @@ pushd "%CD%"
 CD /D "%~dp0"
 cls
 
-:: Detect OS Architecture
-set "arch=x64"
-if /i %PROCESSOR_ARCHITECTURE%==x86 (if not defined PROCESSOR_ARCHITEW6432 (
-  set "arch=x86"
-  )
-)
-
 set "_wimlib=%~dp0bin\wimlib-imagex.exe"
 
 if exist "ISO" RD /S /Q "ISO"
