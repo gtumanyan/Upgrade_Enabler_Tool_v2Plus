@@ -3,7 +3,7 @@
 REM change wording if needed for echo commands..
 
 ::Options to set by dev
-SET "Version=v2.0"
+SET "Version=v2.1_b1+"
 
 REM User settings
 REM When set to "0" = No install.wim optimizing
@@ -76,7 +76,7 @@ IF NOT DEFINED Winver (
 ::if exist "TEMP" rmdir /q /s "TEMP"
 echo.
 ECHO==========================================================
-echo Unsupported iso version %vermajor%
+echo Unsupported iso version...
 ECHO==========================================================
 echo.
 Goto :Cleanup
@@ -105,7 +105,7 @@ echo===============================================
 echo.
 for /f "tokens=3 delims=: " %%i in ('%_wimlib% info ISO\sources\%WIMFILE% ^| findstr /c:"Image Count"') do set images=%%i
 for /L %%i in (1,1,%images%) do (
-  %_wimlib% update "ISO\Sources\%WIMFILE%" %%i --command="add 'Files\UpgradeMatrix\UpgradeMatrix_%WinVer%_%warch%.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
+  %_wimlib% update "ISO\Sources\%WIMFILE%" %%i --command="add 'Files\UpgradeMatrix\UpgradeMatrix_%warch%.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
 )
 echo.
 IF /I "%Optimize%"=="0" GOTO :CreateISO
@@ -115,7 +115,7 @@ echo===============================================
 echo.
 %_wimlib% optimize "ISO\Sources\%WIMFILE%" --recompress
 echo.
-:AddEIConfig
+:CreateISO
 
 echo.
 :EI
@@ -140,7 +140,7 @@ echo.
 for /f "delims=" %%i in ('dir /b Source_ISO\*.iso') do set "isoname=%%i"
 set "isoname=%isoname:~0,-4%_FIXED_Upgrade_Matrix%isodate%.iso"
 
-bin\cdimage.exe -bootdata:2#p0,e,b"ISO\boot\etfsboot.com"#pEF,e,b"ISO\efi\Microsoft\boot\efisys.bin" -o -m -u2 -udfver102 -l%ISOVer%_%warch% ISO "%isoname%"
+bin\cdimage.exe -bootdata:2#p0,e,b"ISO\boot\etfsboot.com"#pEF,e,b"ISO\efi\Microsoft\boot\efisys.bin" -o -m -u2 -udfver102 -l%WINVer%_%warch% ISO "%isoname%"
 
 :Cleanup
 echo.
