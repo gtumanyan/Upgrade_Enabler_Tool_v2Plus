@@ -3,7 +3,7 @@
 REM change wording if needed for echo commands..
 
 ::Options to set by dev
-SET "Version=v2.0"
+SET "Version=v2.1_b1+"
 
 REM User settings
 REM When set to "0" = No install.wim optimizing
@@ -94,21 +94,21 @@ echo===============================================
 echo.
 for /f "tokens=3 delims=: " %%i in ('%_wimlib% info x:\sources\%WIMFILE% ^| findstr /c:"Image Count"') do set images=%%i
 for /L %%i in (1,1,%images%) do (
-  %_wimlib% update "x:\Sources\%WIMFILE%" %%i --command="add 'Files\UpgradeMatrix\UpgradeMatrix_%WinVer%_%warch%.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
+  %_wimlib% update "x:\Sources\%WIMFILE%" %%i --command="add 'Files\UpgradeMatrix\UpgradeMatrix_%warch%.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
 )
 echo.
-IF /I "%Optimize%"=="0" GOTO :AddEIConfig
+IF /I "%Optimize%"=="0" GOTO :CreateISO
 echo===============================================
 echo Optimizing the %Winver% %warch% WIM file...
 echo===============================================
 echo.
 %_wimlib% optimize "x:\Sources\%WIMFILE%" --recompress
 echo.
-:AddEIConfig
+:CreateISO
 
 echo.
 :EI
-IF /I "%EI_CFG_ADD%" NEQ "1" GOTO :Cleanup
+IF /I "%EI_CFG_ADD%" NEQ "1" GOTO :SKIPEI
 echo.
 echo ============================================================
 echo Copying the generic ei.cfg to the work dir...
@@ -118,6 +118,7 @@ echo.
 IF EXIST "x:\Sources\EI.CFG" ren "x:\Sources\EI.CFG" "EI.CFG.ORI"
 COPY /Y "Files\EI.CFG" "x:\Sources\"
 echo.
+:SKIPEI
 
 
 :Cleanup
