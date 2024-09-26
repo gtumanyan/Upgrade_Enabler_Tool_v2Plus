@@ -1,5 +1,5 @@
 @setlocal DisableDelayedExpansion
-@echo off
+::@echo off
 REM change wording if needed for echo commands..
 
 ::Options to set by dev
@@ -33,7 +33,10 @@ TITLE Add Y.A.S.T Recovery to %WIMFILE%
 echo===============================================
 echo Check for Admin rights...
 echo===============================================
-if not "%1"=="am_admin" powershell start -verb runas '%0' am_admin & exit /b
+::if not "%1"=="am_admin" (
+::	powershell -Command "Start-Process -Verb RunAs -FilePath '%0' -ArgumentList 'am_admin'" 
+::	exit /b
+::)
 
 :gotAdmin
 pushd "%CD%"
@@ -53,8 +56,8 @@ for /L %%i in (1,1,%images%) do (
 )
 echo.
 echo===============================================
-echo Optimizing the %Winver% %WIMFILE% file...
+@rem echo Optimizing the %Winver% %WIMFILE% file...
 echo===============================================
 echo.
-%_wimlib% optimize "x:\Sources\%WIMFILE%" --recompress
+@rem %_wimlib% optimize "x:\Sources\%WIMFILE%" --recompress
 echo.

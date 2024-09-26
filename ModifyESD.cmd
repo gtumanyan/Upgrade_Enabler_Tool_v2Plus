@@ -1,9 +1,8 @@
 @setlocal DisableDelayedExpansion
 @echo off
-REM change wording if needed for echo commands..
 
 ::Options to set by dev
-SET "Version=v2.1_b1+"
+SET "Version=v2.1_b3+"
 
 REM User settings
 REM When set to "0" = No install.wim optimizing
@@ -18,6 +17,11 @@ echo Check for Admin rights and elevate...
 echo===============================================
 	reg query "HKU\S-1-5-19" >nul 2>&1 || %NH% elevate "%~f0" && exit
 
+:gotAdmin
+pushd "%CD%"
+CD /D "%~dp0"
+cls
+
 :: Re-launch the script with x64 process if it was initiated by x86 process on x64 bit Windows
 
 if exist %SystemRoot%\Sysnative\cmd.exe (
@@ -29,7 +33,19 @@ exit /b
 
 if exist "x:\sources\install.wim" set WIMFILE=install.wim
 if exist "x:\sources\install.esd" set WIMFILE=install.esd
+TITLE Create Modified %WIMFILE% To Be Able To Directly Upgrade From any Windows Install %version%
 
+
+echo.
+echo===============================================
+echo Running %WIMFILE% Upgrade Enabler %version%...
+echo.
+echo Crappy Tools By Enthousiast ^@MDL modded by WindR
+echo===============================================
+echo.
+set "_wimlib=%~dp0bin\wimlib-imagex.exe"
+
+if exist "TEMP" RD /S /Q "TEMP"
 if not exist "x:\sources\%WIMFILE%" (
 echo.
 ECHO==========================================================
@@ -40,12 +56,6 @@ pause
 exit /b
 )
 
-TITLE Modify Windows %WIMFILE% To Be Able To Directly Upgrade From any Windows Install %version%
-
-
-set "_wimlib=%~dp0bin\wimlib-imagex.exe"
-
-if exist "TEMP" RD /S /Q "TEMP"
 mkdir "TEMP"
 bin\7z.exe l x:\sources\setup.exe >.\TEMP\version.txt 2>&1
 for /f "tokens=4 delims=. " %%i in ('findstr /i /b FileVersion .\TEMP\version.txt') do set vermajor=%%i
@@ -53,7 +63,6 @@ for /f "tokens=4 delims=. " %%i in ('findstr /i /b FileVersion .\TEMP\version.tx
 REM ==========
 
 IF NOT DEFINED vermajor (
-::if exist "TEMP" RD /S /Q "TEMP"
 echo.
 ECHO==========================================================
 echo Detecting setup.exe version failed...
@@ -63,16 +72,15 @@ Goto :Cleanup
 )
 
 SET "Winver="
-IF %vermajor% EQU 22000 SET "Winver=22000" & GOTO :SkipSetISOFiX
-IF %vermajor% EQU 22621 SET "Winver=22621" & GOTO :SkipSetISOFiX
-IF %vermajor% EQU 26100 SET "Winver=26100" & GOTO :SkipSetISOFiX
+IF %vermajor% EQU 22000 SET "Winver=22000"
+IF %vermajor% EQU 22621 SET "Winver=226x1"
 
-IF %vermajor% EQU 9600 SET "Winver=9600" & SET "ISOFiX=0" & GOTO :SkipSetISOFiX
-IF %vermajor% EQU 17763 SET "Winver=17763" & SET "ISOFiX=0" & GOTO :SkipSetISOFiX
-IF %vermajor% EQU 19041 SET "Winver=1904x" & SET "ISOFiX=0" & GOTO :SkipSetISOFiX
+IF %vermajor% EQU 9600 SET "Winver=9600"
+IF %vermajor% EQU 17763 SET "Winver=17763"
+IF %vermajor% EQU 19041 SET "Winver=1904x"
+IF %vermajor% EQU 26100 SET "Winver=26100"
 
 IF NOT DEFINED Winver (
-::if exist "TEMP" rmdir /q /s "TEMP"
 echo.
 ECHO==========================================================
 echo Unsupported setup version %vermajor%
@@ -81,7 +89,6 @@ echo.
 Goto :Cleanup
 )
 
-:SkipSetISOFiX
 
 for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"x:\sources\%WIMFILE%" /index:1 ^| find /i "Architecture"') do set warch=%%#
 echo.
@@ -126,3 +133,4 @@ echo===============================================
 if exist "TEMP" RD /S /Q "TEMP"
 echo.
 pause
+exit /b

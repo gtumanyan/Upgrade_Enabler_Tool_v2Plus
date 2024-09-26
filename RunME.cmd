@@ -1,16 +1,15 @@
 @setlocal DisableDelayedExpansion
 @echo off
-REM change wording if needed for echo commands..
 
 ::Options to set by dev
-SET "Version=v2.1_b1+"
+SET "Version=v2.1_b3+"
 
 REM User settings
 REM When set to "0" = No install.wim optimizing
 REM When set to "1" = Install.wim will be optimized, this can use all system resources and take a while
 SET "Optimize=0"
 REM When set to "0" the EI.CFG file won't be added
-REM When set to "1" the EI.CFG file will be added (when there already is an EI.CFG it will be ranemed to EI.CFG.ORI)
+REM When set to "1" the EI.CFG file will be added (when there already is an EI.CFG it will be renamed to EI.CFG.ORI)
 SET "EI_CFG_ADD=1"
 
 :: Re-launch the script with x64 process if it was initiated by x86 process on x64 bit Windows
@@ -22,7 +21,7 @@ start %SystemRoot%\Sysnative\cmd.exe /c ""!_cmdf!" %*"
 exit /b
 )
 
-TITLE Create Modified Windows ISO To Be Able To Directly Upgrade From any Windows Install %version%
+TITLE Create Modified ISO To Be Able To Directly Upgrade From any Windows Install %version%
 
 echo===============================================
 echo Check for Admin rights...
@@ -34,6 +33,13 @@ pushd "%CD%"
 CD /D "%~dp0"
 cls
 
+echo.
+echo===============================================
+echo Running ISO Upgrade Enabler %version%...
+echo.
+echo Crappy Tools By Enthousiast ^@MDL modded by WindR
+echo===============================================
+echo.
 set "_wimlib=%~dp0bin\wimlib-imagex.exe"
 
 if exist "TEMP" RD /S /Q "TEMP"
@@ -55,7 +61,6 @@ for /f "tokens=4 delims=. " %%i in ('findstr /i /b FileVersion .\TEMP\version.tx
 REM ==========
 
 IF NOT DEFINED vermajor (
-::if exist "TEMP" RD /S /Q "TEMP"
 echo.
 ECHO==========================================================
 echo Detecting setup.exe version failed...
@@ -65,15 +70,15 @@ Goto :Cleanup
 )
 
 SET "Winver="
-IF %vermajor% EQU 22000 SET "Winver=22000" & GOTO :SetISOFiX
-IF %vermajor% EQU 22621 SET "Winver=22621" & GOTO :SetISOFiX
+IF %vermajor% EQU 22000 SET "Winver=22000"
+IF %vermajor% EQU 22621 SET "Winver=226x1"
 
-IF %vermajor% EQU 9600 SET "Winver=9600" & SET "ISOFiX=0" & GOTO :SKiPSetISOFiX
-IF %vermajor% EQU 17763 SET "Winver=17763" & SET "ISOFiX=0" & GOTO :SKiPSetISOFiX
-IF %vermajor% EQU 19041 SET "Winver=1904x" & SET "ISOFiX=0" & GOTO :SKiPSetISOFiX
+IF %vermajor% EQU 9600 SET "Winver=9600"
+IF %vermajor% EQU 17763 SET "Winver=17763"
+IF %vermajor% EQU 19041 SET "Winver=1904x"
+IF %vermajor% EQU 26100 SET "Winver=26100"
 
 IF NOT DEFINED Winver (
-::if exist "TEMP" rmdir /q /s "TEMP"
 echo.
 ECHO==========================================================
 echo Unsupported iso version...
@@ -151,3 +156,4 @@ if exist "ISO" RD /S /Q "ISO"
 if exist "TEMP" RD /S /Q "TEMP"
 echo.
 pause
+exit /b
