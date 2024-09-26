@@ -256,6 +256,125 @@
 		</Features>
 		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
 	</TargetEdition>
+	<TargetEdition ID="ServerTurbine" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerTurbineCor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerTurbineCore" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerDatacenter" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerDatacenterCor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerDatacenterCore" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerStandard" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerStandardCor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerStandardCore" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerDatacenterEval" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerDatacenterEvalCor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerStandardEval" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerStandardEvalCor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerAzureStackHCICor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerAzureCor" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerStandardACorCore" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
+	<TargetEdition ID="ServerDatacenterACorCore" processorArchitecture="amd64" version="*">
+		<Features>
+			<Feature name="DomainJoin"/>
+			<Feature name="SecureStartupPremium"/>
+		</Features>
+		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+	</TargetEdition>
 	<TargetEdition ID="*" processorArchitecture="amd64" version="*">
 		<SourceEdition ID="*" versionRange="any" processorArchitecture="amd64" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
 	</TargetEdition>
