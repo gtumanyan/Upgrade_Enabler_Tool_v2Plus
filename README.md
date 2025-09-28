@@ -14,3 +14,5 @@ https://forums.mydigitallife.net/threads/upgrade-matrix-fix-tool-very-beta.88518
 Enjoy!!!
 
 Crappy Tools by Enthousiast @ MDL modded by WindR
+
+# To downgrade from a higher build you need to patch setupcompat.dll by chaging MOV eax, 1 to MOV eax, 0 in function ConX::Setup::Common::CWindowsVersion::IsLaterThan
