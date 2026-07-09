@@ -1,1 +1,1 @@
-https://wimlib.net/downloads/wimlib-1.14.4-windows-x86_64-bin.zip
+https://wimlib.net/downloads/wimlib-1.14.5-windows-x86_64-bin.zip

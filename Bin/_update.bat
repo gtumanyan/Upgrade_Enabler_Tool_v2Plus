@@ -13,7 +13,7 @@ call %spider% || (call %msg% 11 & goto SKIP)
 call %iflast% && goto SKIP
 call %close% "%pe%" || goto SKIP
 call %download_distr% || (call %msg% 3 & goto SKIP)
-%unpack_distr% -x!devel -x!COPYING* || (call %msg% 4 & goto SKIP)
+%extract_distr% -i!*.dll -i!*.exe * || (call %msg% 4 & goto SKIP)
 call %check_end%
 call %msg% 100
 :SKIP
