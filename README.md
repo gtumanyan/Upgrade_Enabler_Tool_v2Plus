@@ -1,18 +1,22 @@
 # Upgrade_Enabler_Tool_v2Plus
-## Create Modified Windows ISO or install.wim(esd) To Be Able To Directly Upgrade From any Windows Build
 
+This tool is a fork of [Enthousiast's tool](https://forums.mydigitallife.net/threads/upgradematrix-xml-fix-tool-very-beta.88518).
 
-Put the source ISO inside the "Source_ISO" folder and run "RunME.cmd".
+To modify the install.wim(esd) launch ModifyESD.cmd from the drive that contains `sources` folder.
 
-To modify the install.wim(esd) adjust ModifyESD.cmd with drive letter that contains sources folder and launch the script.
+## Missing recovery components
 
-Now you can use the fixed ISO to upgrade by mounting the ISO and running setup.exe.
+To upgrade from a trimmed-down Windows build with recovery missing run [addRecovery](https://github.com/gtumanyan/Upgrade_Enabler_Tool_v2Plus/blob/master/addRecovery.cmd)
 
-Official thread:
-https://forums.mydigitallife.net/threads/upgrade-matrix-fix-tool-very-beta.88518/
+You can supply a compatible Windows Recovery Environment (WinRE) image:
+- extracted from an existing Windows installation;
+- extracted from a Windows installation image;
+- customized with additional drivers or tools.
 
-Enjoy!!!
+A minimal recovery stub is also included. It should not be treated as equivalent to a fully functional WinRE image.
+
+## To downgrade from a higher build you need to patch setupcompat.dll by chaging MOV eax, 1 to MOV eax, 0 in function ConX::Setup::Common::CWindowsVersion::IsLaterThan
+
+Enjoy the unrestricted upgrades!
 
 Crappy Tools by Enthousiast @ MDL modded by WindR
-
-# To downgrade from a higher build you need to patch setupcompat.dll by chaging MOV eax, 1 to MOV eax, 0 in function ConX::Setup::Common::CWindowsVersion::IsLaterThan

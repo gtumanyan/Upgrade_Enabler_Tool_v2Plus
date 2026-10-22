@@ -2,7 +2,7 @@
 @echo off
 
 ::Options to set by dev
-SET "Version=v2.1_b3+"
+SET "Version=v2.1_b6"
 
 REM User settings
 REM When set to "0" = No install.wim optimizing
@@ -26,8 +26,13 @@ TITLE Create Modified ISO To Be Able To Directly Upgrade From any Windows Instal
 echo===============================================
 echo Check for Admin rights...
 echo===============================================
-if not "%1"=="am_admin" powershell start -verb runas '%0' am_admin & exit /b
-
+>nul 2>&1 net session
+if %errorlevel% neq 0 (
+    echo Restart with administrator privileges...
+    powershell -NoProfile -Command "Start-Process '%~f0' -Verb RunAs" >nul 2>&1
+    exit /b
+)
+    
 :gotAdmin
 pushd "%CD%"
 CD /D "%~dp0"
@@ -37,7 +42,7 @@ echo.
 echo===============================================
 echo Running ISO Upgrade Enabler %version%...
 echo.
-echo Crappy Tools By Enthousiast ^@MDL modded by WindR
+echo Crappy Tools By Enthousiast ^@MDL WindR mod
 echo===============================================
 echo.
 set "_wimlib=%~dp0bin\wimlib-imagex.exe"
@@ -59,6 +64,7 @@ bin\7z.exe l .\TEMP\setup.exe >.\TEMP\version.txt 2>&1
 for /f "tokens=4 delims=. " %%i in ('findstr /i /b FileVersion .\TEMP\version.txt') do set vermajor=%%i
 
 REM ==========
+echo Found build: %vermajor% 
 
 IF NOT DEFINED vermajor (
 echo.
@@ -77,8 +83,14 @@ IF %vermajor% EQU 9600 SET "Winver=9600"
 IF %vermajor% EQU 17763 SET "Winver=17763"
 IF %vermajor% EQU 19041 SET "Winver=1904x"
 IF %vermajor% EQU 26100 SET "Winver=26100"
+IF %vermajor% EQU 28000 SET "Winver=28000"
+IF %vermajor% EQU 29600 SET "Winver=29600"
 
-IF NOT DEFINED Winver (
+
+echo %WINVER%
+pause
+
+IF NOT DEFINED %vermajor% (
 echo.
 ECHO==========================================================
 echo Unsupported iso version...
@@ -94,7 +106,7 @@ if exist "ISO" RD /S /Q "ISO"
 MkDir "ISO"
 echo.
 echo===============================================
-echo Extracting the %Winver% source ISO...
+echo Extracting the %vermajor% source ISO...
 echo===============================================
 echo.
 bin\7z x -y -o"ISO\" "Source_ISO\"
@@ -102,20 +114,19 @@ bin\7z x -y -o"ISO\" "Source_ISO\"
 if exist "ISO\sources\install.wim" set WIMFILE=install.wim
 if exist "ISO\sources\install.esd" set WIMFILE=install.esd
 
-for /f "tokens=2 delims=: " %%# in ('dism.exe /english /get-wiminfo /wimfile:"ISO\sources\%WIMFILE%" /index:1 ^| find /i "Architecture"') do set warch=%%#
 echo.
 echo===============================================
-echo Adding the modified %Winver% %warch% UpgradeMatrix.xml to the %Winver% %warch% %WIMFILE%...
+echo Adding the modified %vermajor% UpgradeMatrix.xml to the %vermajor% %WIMFILE%...
 echo===============================================
 echo.
 for /f "tokens=3 delims=: " %%i in ('%_wimlib% info ISO\sources\%WIMFILE% ^| findstr /c:"Image Count"') do set images=%%i
 for /L %%i in (1,1,%images%) do (
-  %_wimlib% update "ISO\Sources\%WIMFILE%" %%i --command="add 'Files\UpgradeMatrix\UpgradeMatrix_%warch%.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
+  %_wimlib% update "ISO\Sources\%WIMFILE%" %%i --command="add 'Files\UpgradeMatrix\UpgradeMatrix.xml' '\Windows\servicing\Editions\UpgradeMatrix.xml'"
 )
 echo.
 IF /I "%Optimize%"=="0" GOTO :CreateISO
 echo===============================================
-echo Optimizing the %Winver% %warch% WIM file...
+echo Optimizing the %vermajor% WIM file...
 echo===============================================
 echo.
 %_wimlib% optimize "ISO\Sources\%WIMFILE%" --recompress
@@ -137,7 +148,7 @@ echo.
 :SKIPEI
 echo.
 echo===============================================
-echo Creating the %Winver% %warch% ISO...
+echo Creating the %vermajor% ISO...
 echo===============================================
 echo.
 for /f %%# in ('powershell "get-date -format _yyyy_MM_dd"') do set "isodate=%%#"
@@ -145,7 +156,7 @@ echo.
 for /f "delims=" %%i in ('dir /b Source_ISO\*.iso') do set "isoname=%%i"
 set "isoname=%isoname:~0,-4%_FIXED_Upgrade_Matrix%isodate%.iso"
 
-bin\cdimage.exe -bootdata:2#p0,e,b"ISO\boot\etfsboot.com"#pEF,e,b"ISO\efi\Microsoft\boot\efisys.bin" -o -m -u2 -udfver102 -l%WINVer%_%warch% ISO "%isoname%"
+bin\oscdimage.exe -bootdata:2#p0,e,b"ISO\boot\etfsboot.com"#pEF,e,b"ISO\efi\Microsoft\boot\efisys.bin" -o -m -u2 -udfver102 -l%vermajor% ISO "%isoname%"
 
 :Cleanup
 echo.
