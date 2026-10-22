@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TmiMatrix xmlns:ext-fn="urn:xslt-extension-functions">
+    <VersionRanges>
+        <Range name="any" minVersion="*.*.*.*" maxVersion="*.*.*.*" minSPVersion="0.0"/>
+    </VersionRanges>
+    <TargetEdition ID="*" processorArchitecture="*" version="*.*.*.*">
+        <SourceEdition ID="*" versionRange="any" processorArchitecture="*" cleanInstall="true" dataOnly="true" dataSetting="true" fullUpgrade="true"></SourceEdition>
+    </TargetEdition>
+</TmiMatrix>
